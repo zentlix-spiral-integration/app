@@ -11,10 +11,13 @@ use Spiral\Framework\Kernel;
 use Spiral\Monolog\Bootloader as Monolog;
 use Spiral\Nyholm\Bootloader as Nyholm;
 use Spiral\Prototype\Bootloader as Prototype;
+use Spiral\Router\Bootloader\AnnotatedRoutesBootloader;
 use Spiral\Scaffolder\Bootloader as Scaffolder;
 use Spiral\Stempler\Bootloader as Stempler;
 use Spiral\Cycle\Bootloader as CycleBridge;
 use Spiral\RoadRunnerBridge\Bootloader as RoadRunnerBridge;
+use Zentlix\Core\Bootloader\CoreBootloader;
+use Zentlix\Users\Bootloader\UsersBootloader;
 
 class App extends Kernel
 {
@@ -38,9 +41,11 @@ class App extends Kernel
         // Application specific logs
         Bootloader\LoggingBootloader::class,
 
+        CoreBootloader::class,
+        UsersBootloader::class,
+
         // Core Services
         Framework\SnapshotsBootloader::class,
-        Framework\I18nBootloader::class,
 
         // Security and validation
         Framework\Security\EncrypterBootloader::class,
@@ -61,7 +66,7 @@ class App extends Kernel
         // Databases
         CycleBridge\DatabaseBootloader::class,
         CycleBridge\MigrationsBootloader::class,
-        // CycleBridge\DisconnectsBootloader::class,
+        CycleBridge\DisconnectsBootloader::class,
 
         // ORM
         CycleBridge\SchemaBootloader::class,
@@ -70,13 +75,13 @@ class App extends Kernel
         CycleBridge\CommandBootloader::class,
 
         // DataGrid
-        // CycleBridge\DataGridBootloader::class,
+        CycleBridge\DataGridBootloader::class,
 
         // Auth
-        // CycleBridge\AuthTokensBootloader::class,
+        CycleBridge\AuthTokensBootloader::class,
 
         // Entity checker
-        // CycleBridge\ValidationBootloader::class,
+        CycleBridge\ValidationBootloader::class,
 
         // Views and view translation
         Framework\Views\ViewsBootloader::class,
@@ -96,16 +101,18 @@ class App extends Kernel
         Framework\Debug\HttpCollectorBootloader::class,
 
         RoadRunnerBridge\CommandBootloader::class,
-    ];
 
-    /*
-     * Application specific services and extensions.
-     */
-    protected const APP = [
-        Bootloader\LocaleSelectorBootloader::class,
-        Bootloader\RoutesBootloader::class,
+        /* -- routes and middleware -- */
+        AnnotatedRoutesBootloader::class,
 
-        // fast code prototyping
+        /* -- security --*/
+       // Bootloader\SecurityBootloader::class,
+        Bootloader\AdminBootloader::class,
+        Bootloader\BackendBootloader::class,
+
+        /* -- development helpers --*/
+        Framework\CommandBootloader::class,
         Prototype\PrototypeBootloader::class,
+        Scaffolder\ScaffolderBootloader::class,
     ];
 }

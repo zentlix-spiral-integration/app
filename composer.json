@@ -10,11 +10,15 @@
     "require": {
         "php": ">=8.1",
         "ext-mbstring": "*",
-        "doctrine/collections": "^1.6",
+        "spiral-cms/core": "dev-master",
+        "spiral-cms/users": "dev-master",
+        "spiral-packages/cqrs": "dev-master",
         "spiral/cycle-bridge": "^1.0",
         "spiral/framework": "^2.10",
+        "spiral/keeper": "dev-master",
         "spiral/nyholm-bridge": "^1.0",
-        "spiral/roadrunner-bridge": "^1.0"
+        "spiral/roadrunner-bridge": "^1.0",
+        "zentlix/core": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
@@ -48,6 +52,18 @@
     "config": {
         "sort-packages": true
     },
+    "repositories": [
+        {
+            "type": "path",
+            "name": "spiral-cms/core",
+            "url": "../packages/cms-core"
+        },
+        {
+            "type": "path",
+            "name": "spiral-cms/users",
+            "url": "../packages/cms-users"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

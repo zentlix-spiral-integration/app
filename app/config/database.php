@@ -27,7 +27,7 @@ return [
      */
     'databases' => [
         'default' => [
-            'driver' => 'runtime',
+            'driver' => 'mysql',
         ],
     ],
 
@@ -38,10 +38,15 @@ return [
      * the driver class and its connection options.
      */
     'drivers' => [
-        'runtime' => new Config\SQLiteDriverConfig(
-            connection: new Config\SQLite\MemoryConnectionConfig(),
+        'mysql' => new Config\MySQLDriverConfig(
+            connection: new Config\MySQL\TcpConnectionConfig(
+                host: 'localhost',
+                database: 'zentlix',
+                user: 'root',
+                password: '',
+                port: 3306
+            ),
             queryCache: true
         ),
-        // ...
     ],
 ];
